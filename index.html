@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grok Bot 模板市场 · 中文导航速查（非官方）</title>
+<meta name="description" content="Grok Bot 官方模板市场的中文速查导航。收录 x.ai 官方 Bot Marketplace 的全部公开模板，中文说明，安装按钮直达官方原页。非官方站点。">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Grok Bot 模板市场 · 中文导航速查（非官方）">
+<meta property="og:description" content="官方 Bot Marketplace 全量模板的中文速查，安装直达 x.ai 官方原页。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="disclaimer-bar" role="note">
+  <strong>非官方 · 中文导航速查</strong>
+  <span>本站不是 xAI / SpaceXAI / Cursor 的官方站点，不代收安装、不托管模板。所有「安装 / 使用」按钮均跳转 <code>x.ai</code> 官方原页。</span>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>Grok Bot 模板市场 · 中文速查</h1>
+        <p class="brand-sub">官方 Bot Marketplace 全量模板的中文货架，找到就点，安装走官方。</p>
+      </div>
+    </div>
+
+    <dl class="stats" id="stats">
+      <div><dt>收录模板</dt><dd id="stat-count">–</dd></div>
+      <div><dt>创作者</dt><dd id="stat-creators">–</dd></div>
+      <div><dt>分类</dt><dd id="stat-cats">–</dd></div>
+    </dl>
+
+    <p class="source-line">
+      数据抓自官方目录
+      <a href="https://x.ai/bot/marketplace" target="_blank" rel="noopener noreferrer">x.ai/bot/marketplace</a>
+      · 快照日期 <time datetime="2026-09-05">2026-09-05</time>
+      · <a href="#faq">这站是什么 / 缺什么</a>
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="controls" aria-label="筛选模板">
+    <div class="search-box">
+      <label class="visually-hidden" for="search">搜索模板</label>
+      <input id="search" type="search" placeholder="搜中文名、英文名、用途或创作者，例如：采购、销售、Figma、mattyp" autocomplete="off">
+      <button type="button" id="clear-search" class="clear-btn" hidden aria-label="清空搜索">×</button>
+    </div>
+    <div class="chips" id="cat-chips" role="group" aria-label="按分类筛选"></div>
+  </section>
+
+  <p class="result-line" id="result-line" role="status"></p>
+
+  <section class="shelf" id="shelf" aria-label="模板列表"></section>
+
+  <p class="empty" id="empty" hidden>没有匹配的模板。换个关键词，或点「全部」看完整货架。</p>
+
+  <section class="notes" id="faq">
+    <h2>这站是什么，以及它缺什么</h2>
+
+    <h3>做了什么</h3>
+    <ul>
+      <li>把 <a href="https://x.ai/bot/marketplace" target="_blank" rel="noopener noreferrer">x.ai 官方 Bot Marketplace</a> 上公开列出的全部模板抓下来，逐条配了中文名和一句话说明。</li>
+      <li>每张卡片有两个官方出口：<b>安装 / 使用</b> 跳官方模板预览页 <code>x.ai/bot/&lt;token&gt;</code>，<b>官方详情</b> 跳市场详情页 <code>x.ai/bot/marketplace/bots/&lt;slug&gt;</code>。两个都是官方域名，本站不做任何中转。</li>
+      <li>模板名、英文原描述、创作者、分类，全部来自官方页面，没有人工编造条目。</li>
+    </ul>
+
+    <h3>已知缺口</h3>
+    <ul>
+      <li><b>只覆盖官方市场里公开列出的模板。</b>创作者自己在 X 上分享、但没进官方市场的模板（同样是 <code>x.ai/bot/&lt;token&gt;</code> 形式）不在本站范围内。这类链接在社区里数量更多，但没有官方目录背书，本站不收。</li>
+      <li><b>是快照，不是实时。</b>官方市场会持续新增，本站数据需要跑一次 <code>tools/refresh.py</code> 才会更新。页头的快照日期就是上次刷新时间。</li>
+      <li><b>安装量、评分未收录。</b>官方页面当前返回的安装量字段全为 0，看不出真实热度，所以本站不展示这一列，免得误导。</li>
+      <li><b>装机数、可用性不做保证。</b>本站只核对过每条链接返回 200，没有安装或运行过任何模板。</li>
+    </ul>
+
+    <h3>安装前请知悉（官方规则）</h3>
+    <ul>
+      <li>需要先有 Grok Bot 客户端和可用套餐，浏览器里点安装只会唤起 App，装不进去。参见 <a href="https://docs.x.ai/grok-bot/get-started" target="_blank" rel="noopener noreferrer">官方入门文档</a>。</li>
+      <li>安装模板复制的是配置（身份、说明、技能、例行任务），<b>不会</b>带来对方的电脑、登录态和聊天记录，你要自己重新连账号。见 <a href="https://docs.x.ai/grok-bot/bots" target="_blank" rel="noopener noreferrer">Create and manage Bots</a>。</li>
+      <li>除官方团队发布的以外，模板都是第三方作品，官方明确不做安全性背书；装之前把说明、技能和例行任务读一遍，并在 Bot 描述里写死你自己的审批边界。见 <a href="https://docs.x.ai/grok-bot/approvals-security-and-privacy" target="_blank" rel="noopener noreferrer">Approvals, security, and privacy</a>。</li>
+      <li>你账号下所有 Bot 共用同一台云端电脑和同一批登录态，装进来的模板会继承这些会话。</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><b>非官方中文导航速查。</b>与 xAI / SpaceXAI / Cursor / Anysphere 无任何隶属或合作关系。Grok、Grok Bot、Cursor 为各自权利人商标。</p>
+    <p>本站不托管模板、不代理安装、不收费。安装行为发生在 x.ai 官方页面和 Grok Bot 客户端内。</p>
+    <p>官方入口：
+      <a href="https://x.ai/bot/marketplace" target="_blank" rel="noopener noreferrer">Bot Marketplace</a> ·
+      <a href="https://docs.x.ai/grok-bot/overview" target="_blank" rel="noopener noreferrer">官方文档</a> ·
+      <a href="https://x.ai/news/grok-bot-procurement" target="_blank" rel="noopener noreferrer">官方采购案例（Haggle Bot）</a>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
