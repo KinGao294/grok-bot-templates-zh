@@ -1,4 +1,4 @@
-name: Deploy site to GitHub Pages
+name: Publish site to gh-pages
 
 on:
   push:
@@ -7,63 +7,32 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: gh-pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Import site content on first run
-        env:
-          BUNDLE_URLS: "https://n.uguu.se/lRApOhXE.tar.gz https://temporary-snappy-magenta-xd3u86b.vercel.app/grok-bot-templates-zh.tar.gz"
-        run: |
-          if [ -f index.html ]; then
-            echo "Site content already committed; nothing to import."
-            exit 0
-          fi
-          found=""
-          for url in $BUNDLE_URLS; do
-            echo "Trying $url"
-            if curl -fsSL -A "Mozilla/5.0" "$url" -o /tmp/site.tar.gz && tar -tzf /tmp/site.tar.gz >/dev/null 2>&1; then
-              found="$url"
-              break
-            fi
-          done
-          if [ -z "$found" ]; then
-            echo "No reachable bundle source" >&2
-            exit 1
-          fi
-          echo "Imported from $found"
-          tar -xzf /tmp/site.tar.gz -C .
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "Import static site content"
-          git push
-
-      - name: Assemble publish directory
+      - name: Build publish directory
         run: |
           mkdir -p _site
           rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
+          touch _site/.nojekyll
           ls -la _site
 
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Push to gh-pages branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd _site
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Publish site from ${GITHUB_SHA}"
+          git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
